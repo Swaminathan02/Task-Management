@@ -1,0 +1,28 @@
+{
+  "name": "shipsy-assignment",
+  "version": "1.0.0",
+  "description": "\"# Task-Management\"",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Swaminathan02/Task-Management.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Swaminathan02/Task-Management/issues"
+  },
+  "homepage": "https://github.com/Swaminathan02/Task-Management#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "mongoose": "^8.17.1",
+    "nodemon": "^3.1.10"
+  }
+}
