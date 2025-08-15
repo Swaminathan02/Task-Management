@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager - AI Campus Assignment</title>
+    <link rel="icon" type="image/jpeg" href="./icon/Tm.png" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- Login/Signup Page -->
+    <div id="auth-page" class="page active">
+      <div class="auth-container">
+        <div class="auth-header">
+          <img src="./icon/Tm.png" />
+          <h1>Task Manager</h1>
+        </div>
+
+        <div class="auth-tabs">
+          <button
+            id="login-tab"
+            class="tab-btn active"
+            onclick="switchTab('login')"
+          >
+            Login
+          </button>
+          <button id="signup-tab" class="tab-btn" onclick="switchTab('signup')">
+            Sign Up
+          </button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="auth-form active">
+          <h2>Welcome Back</h2>
+          <div class="form-group">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" name="username" required />
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              required
+            />
+          </div>
+          <button type="submit" class="auth-btn">Login</button>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signup-form" class="auth-form">
+          <h2>Create Account</h2>
+          <div class="form-group">
+            <label for="signup-username">Username</label>
+            <input type="text" id="signup-username" name="username" required />
+          </div>
+          <div class="form-group">
+            <label for="signup-email">Email</label>
+            <input type="email" id="signup-email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input
+              type="password"
+              id="signup-password"
+              name="password"
+              required
+            />
+          </div>
+          <button type="submit" class="auth-btn">Sign Up</button>
+        </form>
+
+        <div id="auth-message" class="message"></div>
+      </div>
+    </div>
+
+    <!-- Task Manager Page -->
+    <div id="task-page" class="page">
+      <div class="task-container">
+        <!-- Header -->
+        <header class="task-header">
+          <div class="header-content">
+            <h1>My Tasks</h1>
+            <div class="user-info">
+              <span id="username-display">Welcome, User!</span>
+              <button id="logout-btn" class="logout-btn">Logout</button>
+            </div>
+          </div>
+        </header>
+
+        <!-- Task Creation Form -->
+        <div class="task-form-section">
+          <button id="toggle-form-btn" class="toggle-btn">
+            + Add New Task
+          </button>
+          <form id="task-form" class="task-form hidden">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="task-title">Task Title *</label>
+                <input type="text" id="task-title" name="title" required />
+              </div>
+              <div class="form-group">
+                <label for="task-priority">Priority *</label>
+                <select id="task-priority" name="priority" required>
+                  <option value="">Select Priority</option>
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                  <option value="urgent">Urgent</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="task-completed">Completed</label>
+                <input type="checkbox" id="task-completed" name="completed" />
+              </div>
+              <div class="form-group">
+                <label for="task-estimated-hours">Estimated Hours *</label>
+                <input
+                  type="number"
+                  id="task-estimated-hours"
+                  name="estimatedHours"
+                  min="0.5"
+                  step="0.5"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group full-width">
+                <label for="task-description">Description</label>
+                <textarea
+                  id="task-description"
+                  name="description"
+                  rows="3"
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="submit-btn" id="create-task-btn">
+                <span id="form-submit-text">Create Task</span>
+              </button>
+              <button type="button" id="cancel-form-btn" class="cancel-btn">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="controls-section">
+          <div class="search-filter-bar">
+            <div class="search-group">
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Search tasks..."
+              />
+              <button id="search-btn" class="search-btn">🔍</button>
+            </div>
+
+            <div class="filter-group">
+              <select id="priority-filter">
+                <option value="">All Priorities</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+                <option value="urgent">Urgent</option>
+              </select>
+
+              <select id="status-filter">
+                <option value="">All Status</option>
+                <option value="completed">Completed</option>
+                <option value="pending">Pending</option>
+              </select>
+
+              <select id="sort-select">
+                <option value="createdAt">Sort by Date</option>
+                <option value="title">Sort by Title</option>
+                <option value="estimatedHours">Sort by Hours</option>
+              </select>
+
+              <button id="clear-filters-btn" class="clear-btn">Clear</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Task List -->
+        <div class="task-list-section">
+          <div id="task-list" class="task-list">
+            <!-- Tasks will be dynamically loaded here -->
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination-section">
+            <div class="pagination-info">
+              <span id="pagination-info">Showing 0-0 of 0 tasks</span>
+            </div>
+            <div class="pagination-controls">
+              <button id="prev-btn" class="pagination-btn" disabled>
+                Previous
+              </button>
+              <div id="page-numbers" class="page-numbers"></div>
+              <button id="next-btn" class="pagination-btn" disabled>
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Task Statistics -->
+        <div class="stats-section">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <h3 id="total-tasks">0</h3>
+              <p>Total Tasks</p>
+            </div>
+            <div class="stat-card">
+              <h3 id="completed-tasks">0</h3>
+              <p>Completed</p>
+            </div>
+            <div class="stat-card">
+              <h3 id="pending-tasks">0</h3>
+              <p>Pending</p>
+            </div>
+            <div class="stat-card">
+              <h3 id="total-hours">0</h3>
+              <p>Est. Hours</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+      </div>
+
+      <!-- Message Display -->
+      <div id="task-message" class="message"></div>
+    </div>
+
+    <!-- Edit Task Modal -->
+    <div id="edit-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Edit Task</h2>
+          <button class="modal-close">&times;</button>
+        </div>
+        <form id="edit-task-form" class="modal-form">
+          <input type="hidden" id="edit-task-id" />
+          <div class="form-row">
+            <div class="form-group">
+              <label for="edit-task-title">Task Title *</label>
+              <input type="text" id="edit-task-title" name="title" required />
+            </div>
+            <div class="form-group">
+              <label for="edit-task-priority">Priority *</label>
+              <select id="edit-task-priority" name="priority" required>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="edit-task-completed">Completed</label>
+              <input
+                type="checkbox"
+                id="edit-task-completed"
+                name="completed"
+              />
+            </div>
+            <div class="form-group">
+              <label for="edit-task-estimated-hours">Estimated Hours *</label>
+              <input
+                type="number"
+                id="edit-task-estimated-hours"
+                name="estimatedHours"
+                min="0.5"
+                step="0.5"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label for="edit-task-description">Description</label>
+              <textarea
+                id="edit-task-description"
+                name="description"
+                rows="3"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button type="submit" class="submit-btn">Update Task</button>
+            <button type="button" class="cancel-btn modal-cancel">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

@@ -19,7 +19,6 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Connect to Database
-connectDB();
 
 // API Routes
 app.use("/api/auth", authRoutes);
@@ -31,7 +30,8 @@ app.get("/api/health", (req, res) => {
     status: "OK",
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || "development",
-    database: mongoose.connection.readyState === 1 ? "Connected" : "Disconnected"
+    database:
+      mongoose.connection.readyState === 1 ? "Connected" : "Disconnected",
   });
 });
 
@@ -48,6 +48,7 @@ app.use("/api", (req, res) => {
 
 // Serve frontend for all other non-API routes
 app.get(/.*/, (req, res) => {
+  res.status(404).send("Page Not Found");
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
@@ -65,6 +66,7 @@ process.on("SIGINT", async () => {
 });
 
 app.listen(PORT, () => {
+  connectDB();
   console.log(`🚀 Server running on port ${PORT}`);
 });
 

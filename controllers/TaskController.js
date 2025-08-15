@@ -118,11 +118,9 @@ class TaskController {
       const { title, description, priority, completed, estimatedHours } =
         req.body;
       if (!title || !priority || estimatedHours === undefined) {
-        return res
-          .status(400)
-          .json({
-            message: "Title, priority, and estimated hours are required",
-          });
+        return res.status(400).json({
+          message: "Title, priority, and estimated hours are required",
+        });
       }
       const task = new Task({
         title: title.trim(),
