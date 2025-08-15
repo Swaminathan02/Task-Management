@@ -9,6 +9,7 @@ const connectDB = require("./config/db.js");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Connect to DB
 connectDB();
 
 app.listen(PORT, () => {
