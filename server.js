@@ -46,6 +46,11 @@ app.use("/api", (req, res) => {
   res.status(404).json({ message: "API endpoint not found" });
 });
 
+// Serve frontend for all other non-API routes
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
 // Graceful shutdown handlers
 process.on("SIGTERM", async () => {
   console.log("SIGTERM received. Shutting down gracefully...");
