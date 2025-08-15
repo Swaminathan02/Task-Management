@@ -19,6 +19,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Connect to Database
+connectDB();
 
 // API Routes
 app.use("/api/auth", authRoutes);
@@ -66,7 +67,6 @@ process.on("SIGINT", async () => {
 });
 
 app.listen(PORT, () => {
-  connectDB();
   console.log(`🚀 Server running on port ${PORT}`);
 });
 
