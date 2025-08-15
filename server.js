@@ -8,6 +8,7 @@ const connectDB = require("./config/db.js");
 
 // Route imports
 const authRoutes = require("./routes/authRoutes.js");
+const taskRoutes = require("./routes/taskRoutes.js");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,8 +21,9 @@ app.use(express.static(path.join(__dirname, "public")));
 // Connect to Database
 connectDB();
 
-// Authentication Routes
+// API Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/tasks", taskRoutes);
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {
