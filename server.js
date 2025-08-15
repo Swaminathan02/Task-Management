@@ -6,16 +6,22 @@ const path = require("path");
 
 const connectDB = require("./config/db.js");
 
+// Route imports
+const authRoutes = require("./routes/authRoutes.js");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Connect to DB
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+
+// Connect to Database
 connectDB();
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
-
+// Authentication Routes
+app.use("/api/auth", authRoutes);
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {
@@ -23,6 +29,7 @@ app.get("/api/health", (req, res) => {
     status: "OK",
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || "development",
+    database: mongoose.connection.readyState === 1 ? "Connected" : "Disconnected"
   });
 });
 
@@ -32,18 +39,12 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: "Internal server error" });
 });
 
-// Catch-all for API routes that weren't matched - and tell its 404 error
+// 404 handler for API routes
 app.use("/api", (req, res) => {
   res.status(404).json({ message: "API endpoint not found" });
 });
 
-// Serve frontend for all other non-API routes
-app.get(/.*/, (req, res) => {
-  res.status(404).send("Page Not Found");
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-// Graceful shutdown
+// Graceful shutdown handlers
 process.on("SIGTERM", async () => {
   console.log("SIGTERM received. Shutting down gracefully...");
   await mongoose.connection.close();
@@ -56,4 +57,8 @@ process.on("SIGINT", async () => {
   process.exit(0);
 });
 
-model.exports = app;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
+
+module.exports = app;
