@@ -6,7 +6,7 @@ The app allows users to **sign up, log in, and manage their tasks (CRUD operatio
 🚀 Deployed on **Render**: [Live Demo](https://task-management-deployment.onrender.com/)  
 📽️ Watch the **Demo Video**: [Video Link](https://www.loom.com/share/01d5da5c5f354a6f91cd26be648fc772?sid=93a1d29a-946b-4044-9bf4-dda605ed7564)  
 📖 API Documentation using Postman: [Postman Docs](https://docs.google.com/document/d/18ZbiuMWghZapwkC-K4Z_TkBGUW1NL9LoIvcMT_CqFrQ/edit?tab=t.0)
-📖 Overall Documentation: [Overall Docs](https://docs.google.com/document/d/18ZbiuMWghZapwkC-K4Z_TkBGUW1NL9LoIvcMT_CqFrQ/edit?tab=t.0)
+📖 Overall Documentation: [Overall Docs](https://docs.google.com/document/d/1vv8tAAJDvws-UGzAV_E2JkHZbsZE0ksqs43YIzk4CUg/edit?tab=t.0)
 
 ---
 
