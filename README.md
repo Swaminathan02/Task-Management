@@ -54,5 +54,3 @@ The app allows users to **sign up, log in, and manage their tasks (CRUD operatio
 ### Demo Video
 - A walkthrough video explaining project flow, features, and usage.
 ---
-
-## 📂 Project Structure
