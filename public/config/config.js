@@ -1,6 +1,6 @@
 // API Configuration
 export const API_CONFIG = {
-  BASE_URL: "http://localhost:3000/api",
+  BASE_URL: "/api",
   ENDPOINTS: {
     LOGIN: "/auth/login",
     SIGNUP: "/auth/signup",
