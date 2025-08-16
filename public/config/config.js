@@ -1,6 +1,6 @@
 // API Configuration
 export const API_CONFIG = {
-  BASE_URL: "https://task-management-deployment.onrender.com/api",
+  BASE_URL: "/api",
   ENDPOINTS: {
 
     LOGIN: "/auth/login",
